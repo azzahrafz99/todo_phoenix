@@ -17,14 +17,7 @@ defmodule TodoMvcWeb.Router do
   scope "/", TodoMvcWeb do
     pipe_through :browser
 
-    live "/", PageLive, :index
-
-    live "/todos", TodoLive.Index, :index
-    live "/todos/new", TodoLive.Index, :new
-    live "/todos/:id/edit", TodoLive.Index, :edit
-
-    live "/todos/:id", TodoLive.Show, :show
-    live "/todos/:id/show/edit", TodoLive.Show, :edit
+    live "/", TodoLive.Index, :index
   end
 
   # Other scopes may use custom stacks.

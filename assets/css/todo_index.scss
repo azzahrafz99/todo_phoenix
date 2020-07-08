@@ -84,7 +84,7 @@ input[type="checkbox"] {
 }
 
 
-#new-todo,
+.new-todo,
 .edit {
 	position: relative;
 	margin: 0;
@@ -105,7 +105,7 @@ input[type="checkbox"] {
 	font-smoothing: antialiased;
 }
 
-#new-todo {
+.new-todo {
 	padding: 16px 16px 16px 60px;
 	border: none;
 	background: rgba(0, 0, 0, 0.003);
