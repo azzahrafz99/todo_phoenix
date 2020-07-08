@@ -1,0 +1,53 @@
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, TodoMvcWeb.TodoLive.FormComponent,
+    id: @todo.id || :new,
+    title: @page_title,
+    action: @live_action,
+    todo: @todo,
+    return_to: Routes.todo_index_path(@socket, :index) %>
+<% end %>
+
+<section id="todoapp">
+  <header id="header">
+    <h1>todos</h1>
+    <%= f = form_for @changeset, "#",
+      id: "todo-form",
+      phx_change: "validate",
+      phx_submit: "save" %>
+
+      <input id="new-todo" name="todo[name]" type="text" placeholder="What needs to be done?" autofocus>
+    </form>
+  </header>
+
+  <section id="main">
+    <input id="toggle-all" type="checkbox">
+    <label for="toggle-all">Mark all as complete</label>
+    <ul id="todo-list">
+      <%= for todo <- @todos do %>
+        <li>
+          <div class='view'>
+            <input class='toggle' type='checkbox'>
+            <label><%= todo.name %></label>
+            <%= link "", to: "#", phx_click: "delete", phx_value_id: todo.id, data: [confirm: "Are you sure?"], class: 'destroy' %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+
+  <footer id="footer" style="display:none">
+    <span id="todo-count"></span>
+    <ul id="filters">
+      <li>
+        <a id="selected" href="#/">All</a>
+      </li>
+      <li>
+        <a id="active" href="#/active">Active</a>
+      </li>
+      <li>
+        <a id="completed" href="#/completed">Completed</a>
+      </li>
+    </ul>
+    <button id="clear-completed">Clear Completed</button>
+  </footer>
+</section>
