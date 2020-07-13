@@ -12,9 +12,9 @@ defmodule TodoMvcWeb.TodoLive.Index do
     {
       :ok,
       socket
-        |> assign(%{todo: %Todo{}})
-        |> assign(:changeset, changeset)
-        |> assign(:todos, list_todos()), temporary_assigns: [todos: [list_todos()]]
+      |> assign(%{todo: %Todo{}})
+      |> assign(:changeset, changeset)
+      |> assign(:todos, list_todos()), temporary_assigns: [todos: [list_todos()]]
     }
   end
 
@@ -22,8 +22,8 @@ defmodule TodoMvcWeb.TodoLive.Index do
   def handle_event("validate", %{"todo" => todo_params}, socket) do
     changeset =
       socket.assigns.todo
-        |> Dashboard.change_todo(todo_params)
-        |> Map.put(:action, :validate)
+      |> Dashboard.change_todo(todo_params)
+      |> Map.put(:action, :validate)
 
     {:noreply, assign(socket, :changeset, changeset)}
   end
@@ -33,7 +33,7 @@ defmodule TodoMvcWeb.TodoLive.Index do
     {
       :noreply,
       socket
-        |> push_redirect(to: Routes.todo_index_path(socket, :index))
+      |> push_redirect(to: Routes.todo_index_path(socket, :index))
     }
   end
 
@@ -45,13 +45,13 @@ defmodule TodoMvcWeb.TodoLive.Index do
   end
 
   def handle_event("update", %{"id" => id}, socket) do
-    todo     = Dashboard.get_todo!(id)
+    todo = Dashboard.get_todo!(id)
     Dashboard.update_todo(todo, %{complete: !todo.complete, name: todo.name})
 
     {
       :noreply,
       socket
-        |> push_redirect(to: Routes.todo_index_path(socket, :index))
+      |> push_redirect(to: Routes.todo_index_path(socket, :index))
     }
   end
 
