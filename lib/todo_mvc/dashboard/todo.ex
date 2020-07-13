@@ -4,6 +4,7 @@ defmodule TodoMvc.Dashboard.Todo do
 
   schema "todos" do
     field :name, :string
+    field :complete, :boolean, default: false
 
     timestamps()
   end
@@ -11,7 +12,7 @@ defmodule TodoMvc.Dashboard.Todo do
   @doc false
   def changeset(todo, attrs) do
     todo
-    |> cast(attrs, [:name])
+    |> cast(attrs, [:complete, :name])
     |> validate_required([:name])
   end
 end

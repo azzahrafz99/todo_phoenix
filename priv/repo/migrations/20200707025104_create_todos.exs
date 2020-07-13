@@ -4,6 +4,7 @@ defmodule TodoMvc.Repo.Migrations.CreateTodos do
   def change do
     create table(:todos) do
       add :name, :string
+      add :complete, :boolean, default: false
 
       timestamps()
     end
