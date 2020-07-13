@@ -89,6 +89,7 @@ defmodule TodoMvc.Dashboard do
   """
   def delete_todo(%Todo{} = todo) do
     Repo.delete(todo)
+      |> broadcast(:todo_deleted)
   end
 
   @doc """
