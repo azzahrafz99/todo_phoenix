@@ -7,7 +7,7 @@
   </header>
 
   <section id="main">
-    <%= link "", to: "#", phx_click: "update_all", id: "toggle-all", phx_value_complete: "true" %>
+    <%= link "", to: "#", phx_click: "update_all", id: "toggle-all", phx_value_complete: "#{!@completed}" %>
     <ul id="todo-list">
       <%= for todo <- @todos do %>
         <li>

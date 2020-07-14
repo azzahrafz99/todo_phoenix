@@ -75,9 +75,8 @@ defmodule TodoMvc.Dashboard do
     |> broadcast(:todo_updated)
   end
 
-  def update_all_todo(attrs) do
-    Todo.changeset(attrs)
-    |> Repo.update_all()
+  def update_all_todo(complete) do
+    Repo.update_all(Todo, set: [complete: complete])
   end
 
   @doc """
@@ -94,7 +93,7 @@ defmodule TodoMvc.Dashboard do
   """
   def delete_todo(%Todo{} = todo) do
     Repo.delete(todo)
-      |> broadcast(:todo_deleted)
+    |> broadcast(:todo_deleted)
   end
 
   @doc """
