@@ -4,8 +4,8 @@ defmodule TodoMvc.Dashboard do
   """
 
   import Ecto.Query, warn: false
-  alias TodoMvc.Repo
 
+  alias TodoMvc.Repo
   alias TodoMvc.Dashboard.Todo
 
   @doc """
@@ -75,6 +75,11 @@ defmodule TodoMvc.Dashboard do
     |> broadcast(:todo_updated)
   end
 
+  def update_all_todo(attrs) do
+    Todo.changeset(attrs)
+    |> Repo.update_all()
+  end
+
   @doc """
   Deletes a todo.
 
@@ -110,6 +115,7 @@ defmodule TodoMvc.Dashboard do
   end
 
   defp broadcast({:error, _reason} = error, _event), do: error
+
   defp broadcast({:ok, todo}, event) do
     Phoenix.PubSub.broadcast(TodoMvc.PubSub, "todos", {event, todo})
     {:ok, todo}

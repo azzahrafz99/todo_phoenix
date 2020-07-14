@@ -1,6 +1,7 @@
 defmodule TodoMvcWeb.TodoLive.Index do
   use TodoMvcWeb, :live_view
 
+  alias TodoMvc.Repo
   alias TodoMvc.Dashboard
   alias TodoMvc.Dashboard.Todo
 
@@ -47,6 +48,16 @@ defmodule TodoMvcWeb.TodoLive.Index do
   def handle_event("update", %{"id" => id}, socket) do
     todo = Dashboard.get_todo!(id)
     Dashboard.update_todo(todo, %{complete: !todo.complete, name: todo.name})
+
+    {
+      :noreply,
+      socket
+      |> push_redirect(to: Routes.todo_index_path(socket, :index))
+    }
+  end
+
+  def handle_event("update_all", %{"complete" => complete}, socket) do
+    Repo.update_all(Todo, set: [complete: complete])
 
     {
       :noreply,
