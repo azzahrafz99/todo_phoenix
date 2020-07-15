@@ -6,7 +6,6 @@ defmodule TodoMvcWeb.TodoLiveTest do
   alias TodoMvc.Dashboard
 
   @create_attrs %{name: "some name"}
-  @invalid_attrs %{name: nil}
 
   defp fixture(:todo) do
     {:ok, todo} = Dashboard.create_todo(@create_attrs)
@@ -54,11 +53,11 @@ defmodule TodoMvcWeb.TodoLiveTest do
     end
 
     test "mark todo as complete", %{conn: conn, todo: todo} do
-      {:ok, index_live, html} = live(conn, Routes.todo_index_path(conn, :index))
+      {:ok, index_live, _html} = live(conn, Routes.todo_index_path(conn, :index))
 
       assert index_live |> element("todo-#{todo.id}-complete-false")
 
-      {:ok, _, html} =
+      {:ok, _, _html} =
         index_live
         |> element("#complete-todo-#{todo.id}", "")
         |> render_click()
@@ -68,7 +67,7 @@ defmodule TodoMvcWeb.TodoLiveTest do
     end
 
     test "mark all todo as complete", %{conn: conn, todo: todo} do
-      {:ok, index_live, html} = live(conn, Routes.todo_index_path(conn, :index))
+      {:ok, index_live, _html} = live(conn, Routes.todo_index_path(conn, :index))
 
       assert index_live |> element("todo-#{todo.id}-complete-false")
 
