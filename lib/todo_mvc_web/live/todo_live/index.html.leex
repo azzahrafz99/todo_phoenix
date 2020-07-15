@@ -11,10 +11,10 @@
     <ul id="todo-list">
       <%= for todo <- @todos do %>
         <li>
-          <div class="check-<%= todo.complete %>">
-            <%= link "", to: "#", phx_click: "update", phx_value_id: todo.id, class: "toggle" %>
+          <div class="complete-<%= todo.complete %>" id="todo-<%= todo.id %>-complete-<%= todo.complete %>" >
+            <%= link "", to: "#", phx_click: "update", phx_value_id: todo.id, class: "toggle", id: "complete-todo-#{todo.id}" %>
             <label><%= todo.name %></label>
-            <%= link "", to: "#", phx_click: "delete", phx_value_id: todo.id, data: [confirm: "Are you sure?"], class: 'destroy' %>
+            <%= link "", to: "#", phx_click: "delete", phx_value_id: todo.id, data: [confirm: "Are you sure?"], class: 'destroy', id: "delete-todo-#{todo.id}"%>
           </div>
         </li>
       <% end %>

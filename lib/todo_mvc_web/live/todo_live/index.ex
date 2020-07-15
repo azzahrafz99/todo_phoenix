@@ -33,31 +33,42 @@ defmodule TodoMvcWeb.TodoLive.Index do
   def handle_event("save", %{"todo" => todo_params}, socket) do
     Dashboard.create_todo(todo_params)
 
-    {:noreply, assign(socket, :todos, list_todos())}
+    {
+      :noreply,
+      socket
+      |> push_redirect(to: Routes.todo_index_path(socket, :index))
+    }
   end
 
   def handle_event("delete", %{"id" => id}, socket) do
     todo     = Dashboard.get_todo!(id)
     {:ok, _} = Dashboard.delete_todo(todo)
 
-    {:noreply, assign(socket, :todos, list_todos())}
+    {
+      :noreply,
+      socket
+      |> push_redirect(to: Routes.todo_index_path(socket, :index))
+    }
   end
 
   def handle_event("update", %{"id" => id}, socket) do
     todo = Dashboard.get_todo!(id)
     Dashboard.update_todo(todo, %{complete: !todo.complete, name: todo.name})
 
-    {:noreply, assign(socket, :todos, list_todos())}
+    {
+      :noreply,
+      socket
+      |> push_redirect(to: Routes.todo_index_path(socket, :index))
+    }
   end
 
   def handle_event("update_all", %{"complete" => complete}, socket) do
-    {:ok, _} = Dashboard.update_all_todo(complete)
+    Dashboard.update_all_todo(complete)
 
     {
       :noreply,
       socket
-      |> assign(:todos, list_todos())
-      |> assign(:completed, completed())
+      |> push_redirect(to: Routes.todo_index_path(socket, :index))
     }
   end
 
