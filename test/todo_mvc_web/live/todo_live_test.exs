@@ -2,19 +2,16 @@ defmodule TodoMvcWeb.TodoLiveTest do
   use TodoMvcWeb.ConnCase
 
   import Phoenix.LiveViewTest
+  import TodoMvc.Factory
 
   alias TodoMvc.Dashboard
 
   @create_attrs %{name: "some name"}
 
-  defp fixture(:todo) do
-    {:ok, todo} = Dashboard.create_todo(@create_attrs)
-    todo
-  end
-
   defp create_todo(_) do
-    todo = fixture(:todo)
-    %{todo: todo}
+    todo = insert(:todo, name: "some name")
+
+    {:ok, conn: build_conn(), todo: todo}
   end
 
   describe "Index" do
